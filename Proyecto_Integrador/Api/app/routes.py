@@ -1,19 +1,42 @@
-from flask import request, jsonify
+from flask import request, jsonify, current_app
 from . import db
-from .modules import RolUsuario, Usuario, Checador, Materia, Asistencia, AsistenciaAlumnos
-from . import create_app
+from .models import RolUsuario, Usuario, Checador, Materia, Asistencia, AsistenciaAlumnos  # Asegúrate de importar models
 
-app = create_app()
+# No vuelvas a crear la app aquí
 
-@app.route('/usuarios', methods=['GET'])
+@current_app.route('/usuarios', methods=['GET'])
 def get_usuarios():
     usuarios = Usuario.query.all()
-    return jsonify([{'id': usuario.id, 'nombre': usuario.nombre, 'apellido_Materno': usuario.apellido_Materno, 'apellido_Paterno': usuario.apellido_Paterno, 'email': usuario.email, 'matricula': usuario.matricula, 'id_rol': usuario.id_rol} for usuario in usuarios])
+    return jsonify([{
+        'id': usuario.id, 
+        'nombre': usuario.nombre, 
+        'apellido_Materno': usuario.apellido_Materno, 
+        'apellido_Paterno': usuario.apellido_Paterno, 
+        'email': usuario.email, 
+        'matricula': usuario.matricula, 
+        'id_rol': usuario.id_rol
+    } for usuario in usuarios])
 
-@app.route('/usuarios', methods=['POST'])
+@current_app.route('/usuarios', methods=['POST'])
 def add_usuario():
     data = request.get_json()
-    nuevo_usuario = Usuario(nombre=data['nombre'], apellido_Materno=data['apellido_Materno'], apellido_Paterno=data['apellido_Paterno'], email=data['email'], contrasena=data['contrasena'], matricula=data['matricula'], id_rol=data['id_rol'])
+    nuevo_usuario = Usuario(
+        nombre=data['nombre'], 
+        apellido_Materno=data['apellido_Materno'], 
+        apellido_Paterno=data['apellido_Paterno'], 
+        email=data['email'], 
+        contrasena=data['contrasena'], 
+        matricula=data['matricula'], 
+        id_rol=data['id_rol']
+    )
     db.session.add(nuevo_usuario)
     db.session.commit()
-    return jsonify({'id': nuevo_usuario.id, 'nombre': nuevo_usuario.nombre, 'apellido_Materno': nuevo_usuario.apellido_Materno, 'apellido_Paterno': nuevo_usuario.apellido_Paterno, 'email': nuevo_usuario.email, 'matricula': nuevo_usuario.matricula, 'id_rol': nuevo_usuario.id_rol}), 201
+    return jsonify({
+        'id': nuevo_usuario.id, 
+        'nombre': nuevo_usuario.nombre, 
+        'apellido_Materno': nuevo_usuario.apellido_Materno, 
+        'apellido_Paterno': nuevo_usuario.apellido_Paterno, 
+        'email': nuevo_usuario.email, 
+        'matricula': nuevo_usuario.matricula, 
+        'id_rol': nuevo_usuario.id_rol
+    }), 201
