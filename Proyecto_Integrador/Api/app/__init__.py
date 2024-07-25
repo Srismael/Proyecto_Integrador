@@ -11,8 +11,17 @@ def create_app():
     db.init_app(app)
     
     with app.app_context():
-        from . import routes  # Importa routes en lugar de modules
+        from . import models
+        from .routes import usuarios_bp, roles_bp, checador_bp, materias_bp, asistencia_bp, asistencia_alumnos_bp
+        
+        # Registrar los Blueprints
+        app.register_blueprint(usuarios_bp)
+        app.register_blueprint(roles_bp)
+        app.register_blueprint(checador_bp)
+        app.register_blueprint(materias_bp)
+        app.register_blueprint(asistencia_bp)
+        app.register_blueprint(asistencia_alumnos_bp)
+        
         db.create_all()
         
     return app
-

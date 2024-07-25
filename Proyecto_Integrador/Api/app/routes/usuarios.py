@@ -1,10 +1,9 @@
-from flask import request, jsonify, current_app
-from . import db
-from .models import RolUsuario, Usuario, Checador, Materia, Asistencia, AsistenciaAlumnos  # Asegúrate de importar models
+from flask import request, jsonify
+from . import usuarios_bp
+from .. import db
+from ..models import Usuario
 
-# No vuelvas a crear la app aquí
-
-@current_app.route('/usuarios', methods=['GET'])
+@usuarios_bp.route('/usuarios', methods=['GET'])
 def get_usuarios():
     usuarios = Usuario.query.all()
     return jsonify([{
@@ -17,7 +16,7 @@ def get_usuarios():
         'id_rol': usuario.id_rol
     } for usuario in usuarios])
 
-@current_app.route('/usuarios', methods=['POST'])
+@usuarios_bp.route('/usuarios', methods=['POST'])
 def add_usuario():
     data = request.get_json()
     nuevo_usuario = Usuario(
