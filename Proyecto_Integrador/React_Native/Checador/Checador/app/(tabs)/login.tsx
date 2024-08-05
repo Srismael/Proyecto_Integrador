@@ -6,9 +6,9 @@ export default function Login(props: any) {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    if (email === 'test@example.com' && password === 'password') {
+    if (email === '1' && password === '1') {
       Alert.alert('Login Successful', 'Welcome to the app!');
-      props.navigation.navigate('Home')
+      props.navigation.navigate('Home'); // Navegar a la pantalla Home
     } else {
       Alert.alert('Login Failed', 'Invalid email or password');
     }
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    padding: 200,
+    padding: 20,
   },
   title: {
     fontSize: 24,

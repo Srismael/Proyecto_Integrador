@@ -16,13 +16,14 @@ def get_usuarios():
         'id_rol': usuario.id_rol
     } for usuario in usuarios])
 
+# Ruta para agregar un nuevo usuario
 @usuarios_bp.route('/usuarios', methods=['POST'])
 def add_usuario():
     data = request.get_json()
     nuevo_usuario = Usuario(
         nombre=data['nombre'], 
-        apellido_Materno=data['apellido_Materno'], 
-        apellido_Paterno=data['apellido_Paterno'], 
+        apellido_Materno=data.get('apellido_Materno', ''), 
+        apellido_Paterno=data.get('apellido_Paterno', ''), 
         email=data['email'], 
         contrasena=data['contrasena'], 
         matricula=data['matricula'], 

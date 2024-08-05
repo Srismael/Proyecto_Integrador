@@ -4,25 +4,45 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from '@/app/(tabs)/login';
 import Home from '@/app/(tabs)/home';
-
+import Usuarios from '@/app/(tabs)/usuarios';
+import Materias from '@/app/(tabs)/materias';
+import AsistenciaUsuarios from '@/app/(tabs)/asistencia_usuarios';
+import CrearAsistencia from '@/app/(tabs)/Asistencia';
+import InsertAsistencia from '@/app/(tabs)/InsertAsistencia';
+ 
 
 const Stack = createNativeStackNavigator();
 
 function MyStack() {
   return (
-   <Stack.Navigator initialRouteName='Login'>
+    <Stack.Navigator initialRouteName='Login'>
     <Stack.Screen 
-    name='Login'
-    component={Login}
-
+      name='Login'
+      component={Login}
     />
-     <Stack.Screen 
-    name='Home'
-    component={Home}
-    
+    <Stack.Screen 
+      name='Home'
+      component={Home}
     />
-
-   </Stack.Navigator>
+    <Stack.Screen 
+      name='Usuarios'
+      component={Usuarios}
+    />
+    <Stack.Screen 
+      name='Materias'
+      component={Materias}
+    />
+    <Stack.Screen 
+    name='AsistenciaUsuarios' 
+    component={AsistenciaUsuarios} 
+    />
+    <Stack.Screen 
+    name="CrearAsistencia" 
+    component={CrearAsistencia} 
+    />
+    <Stack.Screen name="InsertAsistencia" component={InsertAsistencia} />
+  </Stack.Navigator>
+  
   );
 }
 

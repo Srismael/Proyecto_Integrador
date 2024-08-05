@@ -1,13 +1,30 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
-export default function Home() {
-  
-
+export default function Home({ navigation }: any) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>my hom,e</Text>
-     
+      <Text style={styles.title}>Home</Text>
+      <Button
+        title="Ver Usuarios"
+        onPress={() => navigation.navigate('Usuarios')}
+      />
+      <Button
+        title="Ver Materias"
+        onPress={() => navigation.navigate('Materias')}
+      />
+      <Button
+        title="Ver Asistencia Usuarios"
+        onPress={() => navigation.navigate('AsistenciaUsuarios')}
+      />
+      <Button
+        title="Crear Asistencia"
+        onPress={() => navigation.navigate('CrearAsistencia')}
+      />
+       <Button
+        title="Insertar Asistencia" // Nuevo botón
+        onPress={() => navigation.navigate('InsertAsistencia')}
+      />
     </View>
   );
 }
@@ -16,18 +33,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    padding: 200,
+    padding: 20,
   },
   title: {
     fontSize: 24,
-    marginBottom: 24,
-    textAlign: 'center',
-  },
-  input: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
     marginBottom: 12,
-    paddingHorizontal: 8,
+    textAlign: 'center',
   },
 });
