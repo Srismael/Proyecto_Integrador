@@ -17,7 +17,7 @@ function MyStack() {
   return (
     <Stack.Navigator initialRouteName='Login'>
     <Stack.Screen 
-      name='Login'
+      name='Checanding'
       component={Login}
     />
     <Stack.Screen 

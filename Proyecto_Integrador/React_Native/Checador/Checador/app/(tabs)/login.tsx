@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
 
 export default function Login(props: any) {
   const [email, setEmail] = useState('');
@@ -33,7 +33,9 @@ export default function Login(props: any) {
         secureTextEntry
         autoCapitalize="none"
       />
-      <Button title="Iniciar" onPress={handleLogin} />
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Iniciar</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -43,17 +45,34 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
+    backgroundColor: '#f5f5f5', // Color de fondo suave
   },
   title: {
-    fontSize: 24,
-    marginBottom: 24,
+    fontSize: 32,
+    marginBottom: 40,
     textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#333', // Color del texto
   },
   input: {
-    height: 40,
+    height: 50,
     borderColor: '#ccc',
     borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
+    borderRadius: 5,
+    marginBottom: 20,
+    paddingHorizontal: 15,
+    backgroundColor: '#fff', // Fondo blanco para los inputs
+  },
+  button: {
+    backgroundColor: '#007bff', // Azul
+    borderRadius: 5,
+    paddingVertical: 15,
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });

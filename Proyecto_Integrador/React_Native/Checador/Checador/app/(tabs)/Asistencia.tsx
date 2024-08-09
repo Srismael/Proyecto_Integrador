@@ -16,7 +16,6 @@ export default function CrearAsistencia({ navigation }: { navigation: any }) {
   const [materias, setMaterias] = useState<Materia[]>([]);
 
   useEffect(() => {
-    // Obtener la lista de materias desde la API
     axios.get('http://127.0.0.1:5000/materias')
       .then(response => {
         setMaterias(response.data);
@@ -48,29 +47,32 @@ export default function CrearAsistencia({ navigation }: { navigation: any }) {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Crear Asistencia</Text>
-      <View style={styles.inputContainer}>
-        <Text>Fecha:</Text>
+      <View style={styles.formContainer}>
+        <Text style={styles.label}>Fecha:</Text>
         <TextInput 
           style={styles.input} 
           value={fecha} 
           onChangeText={setFecha} 
           placeholder="YYYY-MM-DD" 
+          keyboardType="numeric" 
         />
-        <Text>Hora de Entrada:</Text>
+        <Text style={styles.label}>Hora de Entrada:</Text>
         <TextInput 
           style={styles.input} 
           value={horaEntrada} 
           onChangeText={setHoraEntrada} 
           placeholder="HH:MM" 
+          keyboardType="numeric" 
         />
-        <Text>Hora de Salida:</Text>
+        <Text style={styles.label}>Hora de Salida:</Text>
         <TextInput 
           style={styles.input} 
           value={horaSalida} 
           onChangeText={setHoraSalida} 
           placeholder="HH:MM" 
+          keyboardType="numeric" 
         />
-        <Text>Materia:</Text>
+        <Text style={styles.label}>Materia:</Text>
         <Picker
           selectedValue={materia}
           onValueChange={(itemValue) => setMateria(itemValue as string)}
@@ -82,11 +84,13 @@ export default function CrearAsistencia({ navigation }: { navigation: any }) {
           ))}
         </Picker>
       </View>
-      <Button 
-        title="Crear Asistencia" 
-        onPress={handleCreateAsistencia} 
-        color="#1E90FF"
-      />
+      <View style={styles.buttonContainer}>
+        <Button 
+          title="Crear Asistencia" 
+          onPress={handleCreateAsistencia} 
+          color="#1E90FF"
+        />
+      </View>
     </SafeAreaView>
   );
 }
@@ -96,28 +100,44 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#E4F4F7',
     padding: 20,
+    justifyContent: 'center',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
+    color: '#333',
   },
-  inputContainer: {
+  formContainer: {
     marginBottom: 20,
+    marginHorizontal: 20,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
-    padding: 10,
-    marginBottom: 10,
+    padding: 15,
+    marginBottom: 15,
     borderRadius: 5,
+    fontSize: 16,
+    backgroundColor: '#fff',
   },
   picker: {
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
     height: 50,
-    marginBottom: 10,
+    marginBottom: 15,
+    backgroundColor: '#fff',
+  },
+  buttonContainer: {
+    marginTop: 20,
+    marginHorizontal: 20,
+    alignItems: 'center',
   },
 });

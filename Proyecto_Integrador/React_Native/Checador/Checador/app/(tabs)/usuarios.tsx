@@ -37,7 +37,7 @@ export default function Usuarios() {
     return (
       <SafeAreaView style={styles.container}>
         <Text style={styles.title}>Usuarios</Text>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="#007bff" />
       </SafeAreaView>
     );
   }
@@ -47,20 +47,20 @@ export default function Usuarios() {
       <Text style={styles.title}>Usuarios</Text>
       <View style={styles.table}>
         <View style={styles.tableHeader}>
-          <Text style={styles.headerText}>Nombre</Text>
-          <Text style={styles.headerText}>Apellido Paterno</Text>
-          <Text style={styles.headerText}>Apellido Materno</Text>
-          <Text style={styles.headerText}>Email</Text>
+          <Text style={[styles.headerText, styles.headerNombre]}>Nombre</Text>
+          <Text style={[styles.headerText, styles.headerApellido]}>Apellido Paterno</Text>
+          <Text style={[styles.headerText, styles.headerApellido]}>Apellido Materno</Text>
+          <Text style={[styles.headerText, styles.headerEmail]}>Email</Text>
         </View>
         <FlatList
           data={usuarios}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <View style={styles.tableRow}>
-              <Text style={styles.rowText}>{item.nombre}</Text>
-              <Text style={styles.rowText}>{item.apellido_Paterno}</Text>
-              <Text style={styles.rowText}>{item.apellido_Materno}</Text>
-              <Text style={styles.rowText}>{item.email}</Text>
+              <Text style={[styles.rowText, styles.rowNombre]} numberOfLines={1} ellipsizeMode="tail">{item.nombre}</Text>
+              <Text style={[styles.rowText, styles.rowApellido]} numberOfLines={1} ellipsizeMode="tail">{item.apellido_Paterno}</Text>
+              <Text style={[styles.rowText, styles.rowApellido]} numberOfLines={1} ellipsizeMode="tail">{item.apellido_Materno}</Text>
+              <Text style={[styles.rowText, styles.rowEmail]} numberOfLines={1} ellipsizeMode="tail">{item.email}</Text>
             </View>
           )}
         />
@@ -76,24 +76,42 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
+    color: '#333', // Color del texto
   },
   table: {
     flex: 1,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    overflow: 'hidden',
+    elevation: 3, // Sombra en Android
+    shadowColor: '#000', // Sombra en iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   tableHeader: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#f1f1f1',
+    backgroundColor: '#007bff', // Azul
     padding: 10,
+    justifyContent: 'space-between',
   },
   headerText: {
+    color: '#fff',
     fontWeight: 'bold',
-    flex: 1,
     textAlign: 'center',
+  },
+  headerNombre: {
+    width: 80, // Ancho fijo para la columna Nombre
+  },
+  headerApellido: {
+    width: 100, // Ancho fijo para las columnas Apellido
+  },
+  headerEmail: {
+    width: 150, // Ancho fijo para la columna Email
   },
   tableRow: {
     flexDirection: 'row',
@@ -103,7 +121,16 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
   },
   rowText: {
-    flex: 1,
     textAlign: 'center',
+    flexShrink: 1, // Permite que el texto se ajuste y trunque si es necesario
+  },
+  rowNombre: {
+    width: 80, // Ancho fijo para la columna Nombre
+  },
+  rowApellido: {
+    width: 100, // Ancho fijo para las columnas Apellido
+  },
+  rowEmail: {
+    width: 150, // Ancho fijo para la columna Email
   },
 });

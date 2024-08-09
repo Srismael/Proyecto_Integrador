@@ -8,18 +8,26 @@ from datetime import datetime
 
 @asistencia_alumnos_bp.route('/actualizar_asistencia', methods=['POST'])
 def actualizar_asistencia():
-    data = request.json
-    id_usuario = data['id_Usuario']
-    id_asistencia = data['id_Asistencia']
+    try:
+        data = request.get_json()
+        id_usuario = data.get('id_Usuario')
+        id_asistencia = data.get('id_Asistencia')
 
-    asistencia_usuario = AsistenciaUsuarios.query.filter_by(id_Usuario=id_usuario, id_Asistencia=id_asistencia).first()
+        if not id_usuario or not id_asistencia:
+            return jsonify({'message': 'Datos incompletos'}), 400
 
-    if asistencia_usuario:
-        asistencia_usuario.asistencia = True
-        db.session.commit()
-        return jsonify({'message': 'Asistencia actualizada correctamente'}), 200
-    else:
-        return jsonify({'message': 'Registro de asistencia no encontrado'}), 404
+        asistencia_usuario = AsistenciaUsuarios.query.filter_by(id_Usuario=id_usuario, id_Asistencia=id_asistencia).first()
+
+        if asistencia_usuario:
+            asistencia_usuario.asistencia = True
+            db.session.commit()
+            return jsonify({'message': 'Asistencia actualizada correctamente'}), 200
+        else:
+            return jsonify({'message': 'Registro de asistencia no encontrado'}), 404
+
+    except Exception as e:
+        return jsonify({'message': str(e)}), 500
+
 
 
 

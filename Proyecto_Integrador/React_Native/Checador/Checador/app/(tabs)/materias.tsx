@@ -39,7 +39,7 @@ export default function Materias() {
   if (loading) {
     return (
       <SafeAreaView style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="#007bff" />
       </SafeAreaView>
     );
   }
@@ -49,16 +49,16 @@ export default function Materias() {
       <Text style={styles.title}>Materias</Text>
       <View style={styles.table}>
         <View style={styles.tableHeader}>
-          <Text style={styles.headerText}>Nombre</Text>
-          <Text style={styles.headerText}>Profesor</Text>
+          <Text style={[styles.headerText, styles.headerNombre]}>Nombre</Text>
+          <Text style={[styles.headerText, styles.headerProfesor]}>Profesor</Text>
         </View>
         <FlatList
           data={materias}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <View style={styles.tableRow}>
-              <Text style={styles.rowText}>{item.nombre}</Text>
-              <Text style={styles.rowText}>{item.profesor}</Text>
+              <Text style={[styles.rowText, styles.rowNombre]} numberOfLines={1} ellipsizeMode="tail">{item.nombre}</Text>
+              <Text style={[styles.rowText, styles.rowProfesor]} numberOfLines={1} ellipsizeMode="tail">{item.profesor}</Text>
             </View>
           )}
         />
@@ -74,25 +74,40 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
+    color: '#333', // Color del texto
   },
   table: {
     flex: 1,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    overflow: 'hidden',
+    elevation: 3, // Sombra en Android
+    shadowColor: '#000', // Sombra en iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
     marginTop: 10,
   },
   tableHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: '#f1f1f1',
+    backgroundColor: '#007bff', // Azul
     padding: 10,
   },
   headerText: {
+    color: '#fff',
     fontWeight: 'bold',
-    flex: 1,
     textAlign: 'center',
+  },
+  headerNombre: {
+    width: 150, // Ancho fijo para la columna Nombre
+  },
+  headerProfesor: {
+    width: 150, // Ancho fijo para la columna Profesor
   },
   tableRow: {
     flexDirection: 'row',
@@ -102,7 +117,13 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
   },
   rowText: {
-    flex: 1,
     textAlign: 'center',
+    flexShrink: 1, // Permite que el texto se ajuste y trunque si es necesario
+  },
+  rowNombre: {
+    width: 150, // Ancho fijo para la columna Nombre
+  },
+  rowProfesor: {
+    width: 150, // Ancho fijo para la columna Profesor
   },
 });
